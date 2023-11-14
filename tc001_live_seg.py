@@ -42,10 +42,19 @@ if __name__ == "__main__":
     
     args_parser = parser.parse_args()
 
+    width = 256  # Sensor width
+    height = 192  # sensor height
 
-    cap = cv2.VideoCapture(
-        '/dev/video'+str(args_parser.device), cv2.CAP_V4L)
+
+    if 'linux' in str(os.uname()).lower():
+        cap = cv2.VideoCapture('/dev/video'+str(args_parser.device))
+    else:
+        cap = cv2.VideoCapture(int(args_parser.device))
+
     cap.set(cv2.CAP_PROP_CONVERT_RGB, 0.0)
+    cap.set(3, width)
+    cap.set(4, height)
+    # cap.set(10, 150)
 
     configer = Configer(args_parser=args_parser)
     ckpt_root = configer.get('checkpoints', 'checkpoints_dir')
@@ -53,10 +62,6 @@ if __name__ == "__main__":
     configer.update(['network', 'resume'], os.path.join(ckpt_root, ckpt_name + '.pth'))
     segObj = ThermSeg(configer)
     segObj.load_model(configer)
-
-
-    width = 256  # Sensor width
-    height = 192  # sensor height
 
     # First set up the figure, the axis, and the plot element we want to animate
     fig, ax = plt.subplots(figsize=(8,8))
