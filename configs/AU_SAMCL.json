@@ -1,0 +1,23 @@
+{
+    "data": {
+      "input_size": [256, 192],
+      "num_channels": 1,
+      "num_classes": 6,
+      "image_tool": "npy",
+      "input_mode": "therm"
+    },
+    "normalize": {
+      "norm_mode": 2
+    },
+    "checkpoints": {
+      "checkpoints_name": "attention_unet_samcl",
+      "checkpoints_dir": "./ckpt"
+    },
+    "logging": {
+      "logfile_level": "info",
+      "stdout_level": "info",
+      "log_file": "./log/out.log",
+      "log_format": "%(asctime)s %(levelname)-7s %(message)s",
+      "rewrite": true
+    }
+}
