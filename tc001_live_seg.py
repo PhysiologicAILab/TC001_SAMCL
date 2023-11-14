@@ -6,7 +6,9 @@ from utils.configer import Configer
 import os
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import sys
 
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 
 def str2bool(v):
@@ -46,14 +48,16 @@ if __name__ == "__main__":
     height = 192  # sensor height
 
 
-    if 'linux' in str(os.uname()).lower():
+    if 'linux' in sys.platform.lower():
         cap = cv2.VideoCapture('/dev/video'+str(args_parser.device))
+    elif 'win' in  sys.platform.lower():
+        cap = cv2.VideoCapture(int(args_parser.device), cv2.CAP_DSHOW)
     else:
         cap = cv2.VideoCapture(int(args_parser.device))
 
-    cap.set(cv2.CAP_PROP_CONVERT_RGB, 0.0)
-    # cap.set(3, width)
-    # cap.set(4, height)
+    cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
+    cap.set(3, width)
+    cap.set(4, height)
     # cap.set(10, 150)
 
     configer = Configer(args_parser=args_parser)
@@ -65,11 +69,10 @@ if __name__ == "__main__":
 
     # First set up the figure, the axis, and the plot element we want to animate
     fig, ax = plt.subplots(figsize=(8,8))
-    init_image1 = (np.random.rand(height, width) + 1) * 20
+    init_image1 = (np.random.rand(height, width) + 1) * 15
     init_image2 = (np.random.rand(height, width) + 1) * 3
-    im1 = ax.imshow(init_image1, cmap='gray', vmin=20, vmax=40)
-    im2 = ax.imshow(init_image2, cmap='seismic', alpha=0.5, vmin=0, vmax=5)
-
+    im1 = ax.imshow(init_image1, cmap='gray', vmin=10, vmax=40)
+    im2 = ax.imshow(init_image2, cmap='seismic', alpha=0.5, vmin=0, vmax=6)
 
     # fps = 25
     # nSeconds = 10
