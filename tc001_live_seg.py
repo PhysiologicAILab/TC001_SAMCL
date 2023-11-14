@@ -52,8 +52,8 @@ if __name__ == "__main__":
         cap = cv2.VideoCapture(int(args_parser.device))
 
     cap.set(cv2.CAP_PROP_CONVERT_RGB, 0.0)
-    cap.set(3, width)
-    cap.set(4, height)
+    # cap.set(3, width)
+    # cap.set(4, height)
     # cap.set(10, 150)
 
     configer = Configer(args_parser=args_parser)
