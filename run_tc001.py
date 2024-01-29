@@ -36,7 +36,7 @@ class VideoStreamFFmpeg:
             '-r', str(self.fps),
             '-video_size', f'{self.resolution[0]}x{self.resolution[1]}',
             '-i', video_device,
-            '-vcodec', 'rawvideo',  # 'mjpeg',  # Input codec set to mjpeg
+            '-vcodec', 'mjpeg',  # 'mjpeg',  # Input codec set to mjpeg
             '-an', '-vcodec', 'rawvideo',  # Decode the MJPEG stream to raw video
             '-pix_fmt', 'bgra',  # 'bgr24',
             '-vsync', '2',
